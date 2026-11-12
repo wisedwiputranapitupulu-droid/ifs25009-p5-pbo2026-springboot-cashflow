@@ -23,6 +23,18 @@ import javax.sql.DataSource;
 @Configuration
 public class AppConfig {
 
+    private static final long DB_CONNECTION_TIMEOUT_MS = 5000;
+
+    @Bean
+    public DataSource dataSource(
+            @Value("${spring.datasource.url}") String url,
+            @Value("${spring.datasource.username}") String username,
+            @Value("${spring.datasource.password:}") String password,
+            @Value("${app.fallback-database-url}") String fallbackUrl
+    ) {
+        return DataSourceFactory.create(url, username, password, fallbackUrl, DB_CONNECTION_TIMEOUT_MS);
+    }
+
     @Bean
     public IUserRepository userRepository(DataSource dataSource) {
         SchemaInitializer.initialize(dataSource);

@@ -39,6 +39,7 @@ bun.lockb
 
 ### Database / H2 ###
 *.mv.db
+data/
 *.trace.db
 
 ### Logs & temp ###

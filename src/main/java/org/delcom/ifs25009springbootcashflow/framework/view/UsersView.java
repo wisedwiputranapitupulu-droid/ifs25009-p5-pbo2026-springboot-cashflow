@@ -18,7 +18,7 @@ import org.delcom.ifs25009springbootcashflow.domain.repository.IUserRepository;
 import org.delcom.ifs25009springbootcashflow.framework.auth.AuthSession;
 import org.delcom.ifs25009springbootcashflow.usecase.UserUseCase;
 
-/** Daftar seluruh pengguna (khusus ADMIN). */
+/** Daftar seluruh pengguna. Semua user login boleh melihat; tombol transaksi hanya untuk ADMIN. */
 @Route(value = "users", layout = MainLayout.class)
 @PageTitle("Daftar Pengguna | Cash Flow")
 public class UsersView extends VerticalLayout implements BeforeEnterObserver {
@@ -44,7 +44,11 @@ public class UsersView extends VerticalLayout implements BeforeEnterObserver {
         grid.addColumn(User::getUsername).setHeader("Username").setFlexGrow(1);
         grid.addColumn(User::getFullName).setHeader("Nama").setFlexGrow(1);
         grid.addColumn(user -> user.getRole().name()).setHeader("Role").setAutoWidth(true);
+        boolean viewerIsAdmin = AuthSession.currentUser(userRepository).map(User::isAdmin).orElse(false);
         grid.addComponentColumn(user -> {
+            if (!viewerIsAdmin) {
+                return new Span("-");
+            }
             Button open = new Button("Lihat Transaksi", event ->
                     UI.getCurrent().navigate(UserTransactionsView.class, user.getId()));
             open.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
@@ -57,7 +61,7 @@ public class UsersView extends VerticalLayout implements BeforeEnterObserver {
 
         H1 title = new H1("Daftar Pengguna");
         title.getStyle().set("margin", "0");
-        Paragraph subtitle = new Paragraph("Admin dapat melihat transaksi pengguna lain (hanya baca).");
+        Paragraph subtitle = new Paragraph("Daftar pengguna terdaftar. Admin dapat melihat transaksi pengguna lain (hanya baca).");
         subtitle.getStyle().set("margin", "0").set("color", "#4B5563");
 
         Div card = PageCard.wrap(title, subtitle, grid);
@@ -68,8 +72,8 @@ public class UsersView extends VerticalLayout implements BeforeEnterObserver {
     @Override
     public void beforeEnter(BeforeEnterEvent event) {
         User current = AuthSession.currentUser(userRepository).orElse(null);
-        if (current == null || !current.isAdmin()) {
-            event.forwardTo(FinanceView.class);
+        if (current == null) {
+            event.forwardTo(LoginView.class);
         }
     }
 }

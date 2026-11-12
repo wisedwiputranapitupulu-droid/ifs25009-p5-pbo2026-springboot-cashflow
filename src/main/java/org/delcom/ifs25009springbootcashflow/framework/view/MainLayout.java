@@ -251,9 +251,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, AfterN
         menu.add(navItem("Cashflow Saya", FinanceView.class, "", VaadinIcon.WALLET));
         menu.add(navItem("Profil", ProfileView.class, "profile", VaadinIcon.USER));
 
-        AuthSession.currentUser()
-                .filter(User::isAdmin)
-                .ifPresent(user -> menu.add(navItem("Daftar Pengguna", UsersView.class, "users", VaadinIcon.USERS)));
+        menu.add(navItem("Daftar Pengguna", UsersView.class, "users", VaadinIcon.USERS));
 
         drawer.add(brand, menu);
         drawer.expand(menu);

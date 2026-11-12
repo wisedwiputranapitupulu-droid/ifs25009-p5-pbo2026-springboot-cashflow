@@ -42,7 +42,7 @@ config      AppConfig  (composition root: bean JDBC, use case, presenter, FileSt
 | `/uploads/**`, `/icons/**`, `styles.css` | statis | Publik |
 | `/` | FinanceView | USER & ADMIN (wajib login) |
 | `/profile` | ProfileView | USER & ADMIN (wajib login) |
-| `/users` | UsersView | ADMIN saja (USER dialihkan ke `/`) |
+| `/users` | UsersView | USER & ADMIN (wajib login); tombol "Lihat Transaksi" hanya untuk ADMIN |
 | `/user-transactions/{id}` | UserTransactionsView | ADMIN saja, read-only |
 
 ## ID elemen form login (otomasi)

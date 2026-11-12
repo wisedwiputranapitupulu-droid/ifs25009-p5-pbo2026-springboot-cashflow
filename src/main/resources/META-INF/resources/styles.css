@@ -1,3 +1,27 @@
+/* Kontras warna (WCAG AA) */
+:root,
+html {
+  --lumo-primary-color: #1D4ED8;
+  --lumo-primary-text-color: #1D4ED8;
+  --lumo-primary-color-50pct: rgba(29, 78, 216, 0.5);
+  --lumo-primary-color-10pct: rgba(29, 78, 216, 0.1);
+  --lumo-secondary-text-color: #374151;
+  --lumo-tertiary-text-color: #4B5563;
+  --lumo-body-text-color: #111827;
+  --lumo-header-text-color: #111827;
+}
+
+a,
+a[router-link] {
+  color: #1D4ED8;
+}
+
+vaadin-text-field::part(label),
+vaadin-password-field::part(label),
+vaadin-select::part(label) {
+  color: #374151;
+}
+
 /* Cursor pointer untuk semua tombol, menu, dan elemen interaktif */
 button,
 input[type="button"],

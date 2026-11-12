@@ -104,6 +104,7 @@ public class RegisterView extends VerticalLayout implements BeforeEnterObserver 
         form.getStyle().set("gap", "0.45rem");
 
         Div card = new Div(form);
+        card.getElement().setAttribute("role", "main");
         card.getStyle()
                 .set("width", "100%")
                 .set("max-width", "420px")

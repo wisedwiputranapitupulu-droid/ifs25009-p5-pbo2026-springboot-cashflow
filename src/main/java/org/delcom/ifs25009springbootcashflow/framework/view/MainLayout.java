@@ -63,6 +63,7 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, AfterN
         header.getStyle()
                 .set("background", "#FFFFFF")
                 .set("border-bottom", "1px solid #E5E7EB");
+        header.getElement().setAttribute("role", "banner");
         addToNavbar(header);
     }
 
@@ -251,12 +252,12 @@ public class MainLayout extends AppLayout implements BeforeEnterObserver, AfterN
         menu.add(navItem("Cashflow Saya", FinanceView.class, "", VaadinIcon.WALLET));
         menu.add(navItem("Profil", ProfileView.class, "profile", VaadinIcon.USER));
 
-        AuthSession.currentUser()
-                .filter(User::isAdmin)
-                .ifPresent(user -> menu.add(navItem("Daftar Pengguna", UsersView.class, "users", VaadinIcon.USERS)));
+        menu.add(navItem("Daftar Pengguna", UsersView.class, "users", VaadinIcon.USERS));
 
         drawer.add(brand, menu);
         drawer.expand(menu);
+        drawer.getElement().setAttribute("role", "navigation");
+        drawer.getElement().setAttribute("aria-label", "Menu utama");
         addToDrawer(drawer);
     }
 

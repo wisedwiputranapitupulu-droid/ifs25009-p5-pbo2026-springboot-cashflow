@@ -33,7 +33,8 @@ server:
         http-only: true
   compression:
     enabled: true
-    mime-types: text/html,text/css,application/javascript,application/json,image/svg+xml
+    min-response-size: 512
+    mime-types: text/html,text/css,text/javascript,application/javascript,application/json,application/manifest+json,image/svg+xml
 
 app:
   root-username: ${ROOT_USERNAME:admin}

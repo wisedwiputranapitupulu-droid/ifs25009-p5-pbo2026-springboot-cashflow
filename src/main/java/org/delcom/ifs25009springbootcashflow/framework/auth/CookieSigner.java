@@ -30,9 +30,23 @@ final class CookieSigner {
         if (configured != null && !configured.isBlank()) {
             return configured.getBytes(StandardCharsets.UTF_8);
         }
-        byte[] random = new byte[32];
-        new SecureRandom().nextBytes(random);
-        return random;
+        // Kunci stabil (turunan kredensial server) agar login tidak hilang saat aplikasi di-restart/redeploy.
+        String seed = "cashflow|" + env("ROOT_USERNAME") + "|" + env("ROOT_PASSWORD") + "|" + env("DB_PASSWORD");
+        try {
+            return MessageDigest.getInstance("SHA-256").digest(seed.getBytes(StandardCharsets.UTF_8));
+        } catch (GeneralSecurityException ex) {
+            byte[] random = new byte[32];
+            new SecureRandom().nextBytes(random);
+            return random;
+        }
+    }
+
+    private static String env(String name) {
+        String value = System.getProperty(name);
+        if (value == null || value.isBlank()) {
+            value = System.getenv(name);
+        }
+        return value == null ? "" : value;
     }
 
     static String sign(int userId) {

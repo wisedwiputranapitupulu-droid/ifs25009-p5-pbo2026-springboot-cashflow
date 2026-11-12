@@ -2,6 +2,7 @@ package org.delcom.ifs25009springbootcashflow;
 
 import com.vaadin.flow.component.dependency.StyleSheet;
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Meta;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.lumo.Lumo;
 import org.springframework.boot.SpringApplication;
@@ -10,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @StyleSheet(Lumo.STYLESHEET)
 @StyleSheet("styles.css")
+@Meta(name = "description", content = "Cash Flow: aplikasi catatan keuangan pribadi untuk mencatat pemasukan, pengeluaran, dan memantau saldo dengan mudah.")
+@Meta(name = "theme-color", content = "#2563EB")
 @PWA(name = "Cash Flow", shortName = "Cash Flow", iconPath = "icons/icon.png")
 public class App implements AppShellConfigurator {
 

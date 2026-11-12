@@ -143,9 +143,10 @@ public final class AuthSession {
         if (response == null) {
             return;
         }
-        Cookie cookie = new Cookie(COOKIE_NAME, String.valueOf(userId));
+        Cookie cookie = new Cookie(COOKIE_NAME, CookieSigner.sign(userId));
         cookie.setPath("/");
         cookie.setHttpOnly(true);
+        cookie.setAttribute("SameSite", "Lax");
         cookie.setMaxAge(COOKIE_MAX_AGE_SECONDS);
         response.addCookie(cookie);
     }
@@ -173,11 +174,7 @@ public final class AuthSession {
         }
         for (Cookie cookie : cookies) {
             if (COOKIE_NAME.equals(cookie.getName())) {
-                try {
-                    return Integer.parseInt(cookie.getValue());
-                } catch (NumberFormatException ignored) {
-                    return null;
-                }
+                return CookieSigner.verify(cookie.getValue());
             }
         }
         return null;

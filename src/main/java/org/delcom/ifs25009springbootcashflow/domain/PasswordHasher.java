@@ -11,8 +11,13 @@ public final class PasswordHasher {
     }
 
     public static String hash(String rawPassword) {
+        return hashWith("SHA-256", rawPassword);
+    }
+
+    /** Dipisah agar kegagalan algoritma bisa diuji tanpa memanipulasi JVM. */
+    static String hashWith(String algorithm, String rawPassword) {
         try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            MessageDigest digest = MessageDigest.getInstance(algorithm);
             byte[] bytes = digest.digest((rawPassword == null ? "" : rawPassword).getBytes(StandardCharsets.UTF_8));
             StringBuilder hex = new StringBuilder(bytes.length * 2);
             for (byte b : bytes) {
@@ -20,7 +25,7 @@ public final class PasswordHasher {
             }
             return hex.toString();
         } catch (NoSuchAlgorithmException ex) {
-            throw new IllegalStateException("SHA-256 tidak tersedia", ex);
+            throw new IllegalStateException("Algoritma hash tidak tersedia: " + algorithm, ex);
         }
     }
 

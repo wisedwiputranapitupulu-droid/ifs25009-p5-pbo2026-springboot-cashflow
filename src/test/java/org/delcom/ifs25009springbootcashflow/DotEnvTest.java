@@ -69,6 +69,17 @@ class DotEnvTest {
         System.clearProperty(KEY);
         DotEnv.applyLine(KEY + "=x");
         assertEquals("x", System.getProperty(KEY));
+        System.clearProperty(KEY);
+        DotEnv.applyLine(KEY + "='abc\"");
+        assertEquals("'abc\"", System.getProperty(KEY));
+    }
+
+    @Test
+    void environmentVariableTakesPrecedenceOverEnvFile() {
+        String existing = "PATH"; // selalu ada sebagai environment variable (Linux/Windows)
+        String before = System.getProperty(existing);
+        DotEnv.applyLine(existing + "=dari-file");
+        assertEquals(before, System.getProperty(existing));
     }
 
     @Test

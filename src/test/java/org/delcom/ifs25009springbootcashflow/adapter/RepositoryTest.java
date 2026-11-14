@@ -102,6 +102,18 @@ class RepositoryTest {
     }
 
     @Test
+    void jdbcSaveOfNewEntityInsertsAndFillsDefaults() {
+        DataSource ds = h2();
+        User user = new JdbcUserRepository(ds).save(new User(null, "baru", "h", "Baru", Role.USER, null));
+        assertNotNull(user.getId());
+
+        Transaction tx = new JdbcTransactionRepository(ds)
+                .save(new Transaction(null, user.getId(), "Manual", 10, TransactionType.EXPENSE, null, null));
+        assertNotNull(tx.getId());
+        assertNotNull(tx.getCreatedAt());
+    }
+
+    @Test
     void schemaInitializerIsIdempotent() {
         DataSource ds = h2();
         SchemaInitializer.initialize(ds);

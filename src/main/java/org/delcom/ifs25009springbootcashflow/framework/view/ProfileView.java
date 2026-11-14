@@ -178,7 +178,7 @@ public class ProfileView extends VerticalLayout {
                 .set("border", "3px solid #93C5FD")
                 .set("flex-shrink", "0")
                 .set("background", "#EFF6FF");
-        photoPlaceholder.getStyle().set("color", "#6B7280");
+        photoPlaceholder.getStyle().set("color", "#4B5563");
     }
 
     private void refreshPhoto(User user) {

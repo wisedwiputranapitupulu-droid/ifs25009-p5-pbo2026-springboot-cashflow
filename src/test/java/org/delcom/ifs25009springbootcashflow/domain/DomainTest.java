@@ -16,6 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DomainTest {
@@ -30,6 +31,7 @@ class DomainTest {
         assertEquals(PasswordHasher.hash(""), PasswordHasher.hash(null));
         assertTrue(PasswordHasher.matches("password", PasswordHasher.hash("password")));
         assertFalse(PasswordHasher.matches("salah", PasswordHasher.hash("password")));
+        assertThrows(IllegalStateException.class, () -> PasswordHasher.hashWith("ALGORITMA-TIDAK-ADA", "x"));
         assertFalse(PasswordHasher.matches("password", null));
         Constructor<PasswordHasher> c = PasswordHasher.class.getDeclaredConstructor();
         c.setAccessible(true);

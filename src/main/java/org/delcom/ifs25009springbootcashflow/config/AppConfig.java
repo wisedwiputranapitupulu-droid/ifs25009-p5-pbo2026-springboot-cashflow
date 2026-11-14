@@ -86,10 +86,8 @@ public class AppConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addResourceHandlers(ResourceHandlerRegistry registry) {
-                String location = fileStorage.getRoot().toUri().toString();
-                if (!location.endsWith("/")) {
-                    location = location + "/";
-                }
+                // Tanpa percabangan: hasil selalu berakhiran tepat satu "/", baik folder sudah ada maupun belum.
+                String location = fileStorage.getRoot().toUri().toString().replaceAll("/*$", "/");
                 registry.addResourceHandler("/uploads/**").addResourceLocations(location);
             }
         };

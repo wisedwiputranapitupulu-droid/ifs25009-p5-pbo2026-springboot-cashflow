@@ -46,9 +46,8 @@ public class JdbcUserRepository implements IUserRepository {
             ps.setString(5, user.getPhotoPath());
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
-                if (keys.next()) {
-                    user.setId(keys.getInt("id"));
-                }
+                keys.next();
+                user.setId(keys.getInt("id"));
             }
             return user;
         } catch (SQLException ex) {

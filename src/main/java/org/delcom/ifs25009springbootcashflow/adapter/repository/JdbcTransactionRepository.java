@@ -53,9 +53,8 @@ public class JdbcTransactionRepository implements ITransactionRepository {
             ps.setTimestamp(6, Timestamp.valueOf(t.getCreatedAt()));
             ps.executeUpdate();
             try (ResultSet keys = ps.getGeneratedKeys()) {
-                if (keys.next()) {
-                    t.setId(keys.getInt("id"));
-                }
+                keys.next();
+                t.setId(keys.getInt("id"));
             }
             return t;
         } catch (SQLException ex) {

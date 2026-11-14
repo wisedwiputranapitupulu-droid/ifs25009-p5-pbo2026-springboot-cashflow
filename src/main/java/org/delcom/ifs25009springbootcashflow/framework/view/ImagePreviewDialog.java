@@ -36,7 +36,7 @@ final class ImagePreviewDialog {
         Span headerHint = new Span("Klik gambar untuk memperbesar / memperkecil");
         headerHint.getStyle()
                 .set("margin-top", "0.2rem")
-                .set("color", "#BFDBFE")
+                .set("color", "#FFFFFF")
                 .set("font-size", "0.8rem")
                 .set("display", "block");
 

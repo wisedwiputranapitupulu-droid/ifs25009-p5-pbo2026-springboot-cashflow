@@ -109,8 +109,9 @@ public class FinanceView extends VerticalLayout {
         caption.getStyle()
                 .set("display", "block")
                 .set("font-size", "0.875rem")
-                .set("font-weight", "500")
-                .set("color", accent);
+                .set("font-weight", "600")
+                // Teks memakai warna gelap (kontras >= 6.8:1, WCAG AA); aksen hanya untuk border.
+                .set("color", valueColor);
         value.getStyle()
                 .set("display", "block")
                 .set("margin-top", "0.35rem")

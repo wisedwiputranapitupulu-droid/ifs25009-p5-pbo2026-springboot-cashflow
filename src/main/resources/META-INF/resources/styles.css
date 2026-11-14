@@ -9,6 +9,29 @@ html {
   --lumo-tertiary-text-color: #4B5563;
   --lumo-body-text-color: #111827;
   --lumo-header-text-color: #111827;
+  /* Warna sukses/error Lumo diganti agar teks tombol dan label >= 4.5:1 */
+  --lumo-success-color: #047857;
+  --lumo-success-color-50pct: rgba(4, 120, 87, 0.5);
+  --lumo-success-color-10pct: rgba(4, 120, 87, 0.1);
+  --lumo-success-text-color: #047857;
+  --lumo-error-color: #B91C1C;
+  --lumo-error-color-50pct: rgba(185, 28, 28, 0.5);
+  --lumo-error-color-10pct: rgba(185, 28, 28, 0.1);
+  --lumo-error-text-color: #B91C1C;
+}
+
+/* Placeholder dan teks bantuan pada field harus tetap terbaca */
+vaadin-text-field input::placeholder,
+vaadin-password-field input::placeholder,
+vaadin-select input::placeholder {
+  color: #4B5563;
+  opacity: 1;
+}
+
+vaadin-text-field::part(helper-text),
+vaadin-password-field::part(helper-text),
+vaadin-select::part(helper-text) {
+  color: #4B5563;
 }
 
 a,
